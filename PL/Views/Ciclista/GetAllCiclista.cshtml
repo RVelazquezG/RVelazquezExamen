@@ -1,0 +1,61 @@
+﻿@model ML.Ciclista
+@{
+    ViewData["Title"] = "GetAllCiclista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>GetAllCiclista</h1>
+
+<div class="container">
+    <div class="row">
+
+        @using (Html.BeginForm("Add", "Ciclista", FormMethod.Post))
+        {
+
+            <table class="table table-responsive">
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Edad</th>
+                        <th>Nivel</th>
+                        <th>MembresiaActiva</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (ML.Ciclista ciclista in Model.Ciclistas)
+                    {
+                        <tr>
+                           
+                            <td>@ciclista.IdCiclista</td>
+                            <td>@ciclista.Nombre</td>
+                            <td>@ciclista.Direccion</td>
+                            <td>@ciclista.Edad</td>
+                            <td>@ciclista.Nivel</td>
+                            <td>@ciclista.MembresiaActiva</td>
+                            <td class="text-center">
+                                <input type="checkbox" value="@ciclista.IdCiclista" name="Ciclistas">
+                            </td>
+
+                        </tr>
+                    }
+                    @Html.HiddenFor(model => model.Ciclistas)
+
+                </tbody>
+            </table>
+
+            <div class="container">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <input type="submit" value="Agregar" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
