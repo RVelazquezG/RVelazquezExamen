@@ -11,7 +11,6 @@
 
         @using (Html.BeginForm("Add", "Ciclista", FormMethod.Post))
         {
-
             <table class="table table-responsive">
 
                 <thead>
@@ -25,26 +24,27 @@
                 </thead>
 
                 <tbody>
+
                     @foreach (ML.Ciclista ciclista in Model.Ciclistas)
                     {
+
+                        ciclista.Ciclistas = new List<object>();
+
                         <tr>
-                           
-                            <td>@ciclista.IdCiclista</td>
+
                             <td>@ciclista.Nombre</td>
                             <td>@ciclista.Direccion</td>
                             <td>@ciclista.Edad</td>
                             <td>@ciclista.Nivel</td>
                             <td>@ciclista.MembresiaActiva</td>
-                            <td class="text-center">
-                                <input type="checkbox" value="@ciclista.IdCiclista" name="Ciclistas">
-                            </td>
 
                         </tr>
+                        
+                        ciclista.Ciclistas.Add(ciclista);
                     }
-                    @Html.HiddenFor(model => model.Ciclistas)
 
                 </tbody>
-            </table>
+            </table>    
 
             <div class="container">
                 <div class="row">
@@ -59,3 +59,34 @@
     </div>
 </div>
 
+@*
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/Ciclista.js"></script>
+
+<div class="container">
+
+
+    <hr />
+    <table id="tblCiclista" class="table table-hover" border="1">
+        <thead>
+            <tr>
+
+                <th class="text-center" scope="col">Nombre</th>
+                <th class="text-center" scope="col">Direccion</th>
+                <th class="text-center" scope="col">Edad</th>
+                <th class="text-center" scope="col">Nivel</th>
+                <th class="text-center" scope="col">Membresia Activa</th>
+                <th class="text-center" scope="col">Guardar</th>
+
+                <div class="col-md-1" style="padding-left:100px">
+                    <button type="button" class=" btn btn-success" id="btnAdd" onclick="Guardar()">Agregar</button>
+                </div>
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+*@

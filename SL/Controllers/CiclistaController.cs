@@ -9,20 +9,10 @@ namespace SL.Controllers
         [Route("api/Ciclista/Add")]
         public IActionResult Add(ML.Ciclista ciclista)
         {
-            ML.Result result = new ML.Result();
 
-            foreach (string Nombre in ciclista.Ciclistas)
-            {
-                {
-                    ML.Ciclista ciclistaItem = new ML.Ciclista();
-
-                    ciclistaItem.IdCiclista = ciclista.IdCiclista;
+            ML.Result result = BL.Ciclista.Add(ciclista);
 
 
-                    ML.Result resultCiclista = BL.Ciclista.Add(ciclista);
-
-                }
-            }
 
             if (result.Correct)
             {
@@ -32,6 +22,8 @@ namespace SL.Controllers
             {
                 return NotFound();
             }
+
+
         }
     }
 }

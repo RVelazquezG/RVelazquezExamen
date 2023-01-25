@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BL;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
 namespace PL.Controllers
@@ -29,13 +30,13 @@ namespace PL.Controllers
 
                     foreach(var resultItem in resultJSON)
                     {
-                        ML.Ciclista ciclistaItem = new ML.Ciclista();
+                        ML.Ciclista ciclistaItem = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Ciclista>(resultItem.ToString());
 
-                        ciclistaItem.Nombre = resultItem.nombre;
-                        ciclistaItem.Direccion = resultItem.direccion;
-                        ciclistaItem.Edad = resultItem.edad;
-                        ciclistaItem.Nivel = resultItem.nivel;
-                        ciclista.MembresiaActiva = resultItem.membresiaActiva;
+                        //ciclistaItem.Nombre = resultItem.nombre;
+                        //ciclistaItem.Direccion = resultItem.direccion;
+                        //ciclistaItem.Edad = resultItem.edad;
+                        //ciclistaItem.Nivel = resultItem.nivel;
+                        //ciclistaItem.MembresiaActiva = resultItem.membresiaActiva;
 
                         ciclista.Ciclistas.Add(ciclistaItem);
                     }
