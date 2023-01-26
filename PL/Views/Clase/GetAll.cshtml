@@ -1,0 +1,59 @@
+﻿@model ML.Clase
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2 class="text-center">LISTADO DE CLASES</h2>
+<br>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="text-lg-end">
+            <div style="float">
+                @Html.ActionLink("Agregar registro", "Form", "Clase", htmlAttributes: new{@class="btn btn-success"})
+            </div>
+        </div>
+
+        <div class=" row">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Editar</th>
+                        <th hidden>IdClase</th>
+                        <th>Nombre</th>
+                        <th hidden>IdNivel</th>
+                        <th>NombreNivel</th>
+                        <th hidden>IdHorario</th>
+                        <th>Descripcion</th>
+                        <th hidden>IdAula</th>
+                        <th>NombreAula</th>
+                        <th>Eliminar</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Clase clase in Model.Clases)
+                    {
+                        <tr>
+                            <td><a class="btn btn-warning" href="@Url.Action("Form", "Clase", new {IdClase = clase.IdClase})"></a></td>
+                            <td hidden>@clase.IdClase</td>
+                            <td>@clase.Nombre</td>
+                            <td hidden>@clase.Nivel.IdNivel</td>
+                            <td>@clase.Nivel.NombreNivel</td>
+                            <td hidden>@clase.Horario.IdHorario</td>
+                            <td>@clase.Horario.Descripcion</td>
+                            <td hidden>@clase.Aula.IdAula</td>
+                            <td>@clase.Aula.NombreAula</td>
+                            <td><a class="btn btn-danger" href="@Url.Action("Delete", "Clase", new {IdClase = clase.IdClase})"></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

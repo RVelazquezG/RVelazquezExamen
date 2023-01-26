@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Ciclista
+    public class Clase
     {
         public static ML.Result GetAll()
         {
@@ -19,27 +19,31 @@ namespace BL
             {
                 using (DL.RvelazquezExamenContext context = new DL.RvelazquezExamenContext())
                 {
-                    var ciclistas = context.Ciclista.FromSqlRaw("GetAllCiclista").ToList();
+                    var clases = context.Clases.FromSqlRaw("GetAllClase").ToList();
 
                     result.Objects = new List<object>();
 
-                    if (ciclistas != null)
+                    if (clases != null)
                     {
-                        foreach (var obj in ciclistas)
+                        foreach (var obj in clases)
                         {
-                            ML.Ciclista ciclista = new ML.Ciclista();
-                            ciclista.IdCiclista = obj.IdCiclista;
-                            ciclista.NombreCiclista = obj.NombreCiclista;
-                            ciclista.Direccion = obj.Direccion;
-                            ciclista.Edad = obj.Edad.Value;
-                            ciclista.Membresia = obj.Membresia.Value;
+                            ML.Clase clase = new ML.Clase();
+                            clase.IdClase = obj.IdClase;
+                            clase.Nombre = obj.Nombre;
 
-                            ciclista.Nivel = new ML.Nivel();
-                            ciclista.Nivel.IdNivel = obj.IdNivel.Value;
-                            ciclista.Nivel.NombreNivel = obj.NombreNivel;
+                            clase.Nivel = new ML.Nivel();
+                            clase.Nivel.IdNivel = obj.IdNivel.Value;
+                            clase.Nivel.NombreNivel = obj.NombreNivel;
 
+                            clase.Horario = new ML.Horario();
+                            clase.Horario.IdHorario = obj.IdNivel.Value;
+                            clase.Horario.Descripcion = obj.Descripcion;
 
-                            result.Objects.Add(ciclista);
+                            clase.Aula = new ML.Aula();
+                            clase.Aula.IdAula = obj.IdAula.Value;
+                            clase.Aula.NombreAula = obj.NombreAula;
+
+                            result.Objects.Add(clase);
                         }
 
                         result.Correct = true;
@@ -62,7 +66,8 @@ namespace BL
             return result;
         }
 
-        public static ML.Result Add(ML.Ciclista ciclista)
+
+        public static ML.Result Add(ML.Clase clase)
         {
             ML.Result result = new ML.Result();
 
@@ -70,9 +75,9 @@ namespace BL
             {
                 using (DL.RvelazquezExamenContext context = new DL.RvelazquezExamenContext())
                 {
-                    var ciclistas = context.Database.ExecuteSqlRaw($"AddCiclista '{ciclista.NombreCiclista}','{ciclista.Direccion}','{ciclista.Edad}','{ciclista.Membresia}', {ciclista.Nivel.IdNivel}");
+                    var clases = context.Database.ExecuteSqlRaw($"AddClase '{clase.Nombre}','{clase.Nivel.IdNivel}','{clase.Horario.IdHorario}','{clase.Aula.IdAula}'");
 
-                    if (ciclistas >= 1)
+                    if (clases >= 1)
                     {
                         result.Correct = true;
                     }
@@ -93,9 +98,9 @@ namespace BL
 
         }
 
-   
 
-        public static Result Update(ML.Ciclista ciclista)
+
+        public static Result Update(ML.Clase clase)
         {
             Result result = new Result();
             try
@@ -105,7 +110,7 @@ namespace BL
                 {
 
                     {
-                        var updateResult = context.Database.ExecuteSqlRaw(($"UpdateCiclista '{ciclista.IdCiclista}', '{ciclista.NombreCiclista}','{ciclista.Direccion}', '{ciclista.Edad}', '{ciclista.Membresia}', '{ciclista.Nivel.IdNivel}'"));
+                        var updateResult = context.Database.ExecuteSqlRaw(($"UpdateClase '{clase.IdClase}', '{clase.Nombre}','{clase.Nivel.IdNivel}', '{clase.Horario.IdHorario}', '{clase.Aula.IdAula}'"));
 
 
                         if (updateResult >= 1)
@@ -115,7 +120,7 @@ namespace BL
                         else
                         {
                             result.Correct = false;
-                            result.ErrorMessage = "No se actualizó el registro del ciclista";
+                            result.ErrorMessage = "No se actualizó el registro de la clase";
                         }
                     }
                 }
@@ -130,7 +135,7 @@ namespace BL
             return result;
         }
 
-        public static Result GetById(int IdCiclista)
+        public static Result GetById(int IdClase)
         {
             Result result = new Result();
             try
@@ -140,31 +145,37 @@ namespace BL
                 {
 
                     {
-                        var obj = context.Ciclista.FromSqlRaw(($"GetByIdCiclista '{IdCiclista}'")).AsEnumerable().FirstOrDefault();
+                        var obj = context.Clases.FromSqlRaw(($"GetByIdClase '{IdClase}'")).AsEnumerable().FirstOrDefault();
 
                         result.Objects = new List<object>();
 
                         if (obj != null)
                         {
 
-                            ML.Ciclista ciclista = new ML.Ciclista();
-                            ciclista.IdCiclista = obj.IdCiclista;
-                            ciclista.NombreCiclista = obj.NombreCiclista;
-                            ciclista.Direccion = obj.Direccion;
-                            ciclista.Edad = obj.Edad.Value;
-                            ciclista.Membresia = obj.Membresia.Value;
+                            ML.Clase clase = new ML.Clase();
+                            clase.IdClase = obj.IdClase;
+                            clase.Nombre = obj.Nombre;
 
-                            ciclista.Nivel = new ML.Nivel();
-                            ciclista.Nivel.IdNivel = obj.IdNivel.Value;
-                            ciclista.Nivel.NombreNivel = obj.NombreNivel;
-                            result.Object = ciclista;
+                            clase.Nivel = new ML.Nivel();
+                            clase.Nivel.IdNivel = obj.IdNivel.Value;
+                            clase.Nivel.NombreNivel = obj.NombreNivel;
+
+                            clase.Horario = new ML.Horario();
+                            clase.Horario.IdHorario = obj.IdHorario.Value;
+                            clase.Horario.Descripcion = obj.Descripcion;
+
+                            clase.Aula = new ML.Aula();
+                            clase.Aula.IdAula = obj.IdAula.Value;
+                            clase.Aula.NombreAula = obj.NombreAula;
+
+                            result.Object = clase;
 
                             result.Correct = true;
                         }
                         else
                         {
                             result.Correct = false;
-                            result.ErrorMessage = "Ocurrió un error al obtener los registros en la tabla ciclista";
+                            result.ErrorMessage = "Ocurrió un error al obtener los registros en la tabla clase";
                         }
 
                     }
@@ -180,7 +191,7 @@ namespace BL
             return result;
         }
 
-        public static Result Delete(int IdCiclista)
+        public static Result Delete(int IdClase)
         {
             Result result = new Result();
 
@@ -189,7 +200,7 @@ namespace BL
                 using (DL.RvelazquezExamenContext context = new DL.RvelazquezExamenContext())
                 {
 
-                    var query = context.Database.ExecuteSqlRaw(($"DeleteCiclista {IdCiclista}"));
+                    var query = context.Database.ExecuteSqlRaw(($"DeleteClase {IdClase}"));
                     if (query >= 1)
                     {
                         result.Correct = true;
@@ -211,8 +222,5 @@ namespace BL
 
             return result;
         }
-
     }
-
-
 }

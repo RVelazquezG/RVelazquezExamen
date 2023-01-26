@@ -1,0 +1,88 @@
+﻿@model ML.Clase
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h4>Datos de clase</h4>  <br>
+    <div class="row">
+
+
+        @using (Html.BeginForm("Form", "Clase", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col" hidden>
+                @Html.LabelFor(model => model.IdClase)
+                @Html.TextBoxFor(model => model.IdClase)
+                @Html.ValidationMessageFor(model => model.IdClase)
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Nombre)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "txtNombre", @placeholder="Ejemplo: Clase Avanzada", autocomplete = "off"})
+                                @Html.ValidationMessageFor(model => model.Nombre, null, new { @class = "text-danger"})
+
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Nivel.IdNivel)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                                @Html.DropDownListFor(model => model.Nivel.IdNivel, new SelectList(Model.Nivel.Niveles, "IdNivel", "NombreNivel"), "Selecciona una opción", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Nivel.IdNivel)
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Horario.IdHorario)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                                @Html.DropDownListFor(model => model.Horario.IdHorario, new SelectList(Model.Horario.Horarios, "IdHorario", "Descripcion"), "Selecciona una opción", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Horario.IdHorario)
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Aula.IdAula)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                                @Html.DropDownListFor(model => model.Aula.IdAula, new SelectList(Model.Aula.Aulas, "IdAula", "NombreAula"), "Selecciona una opción", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Aula.IdAula)
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <br>  <br>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                        @Html.ActionLink("Regresar", "GetAll", "Clase", htmlAttributes: new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        }
+    </div>
+</div>

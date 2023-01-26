@@ -9,11 +9,14 @@ namespace ML
     public class Ciclista
     {
         public int IdCiclista { get; set; }
-        public string Nombre { get; set; }
+        public string NombreCiclista { get; set; }
         public string Direccion { get; set; }
         public int Edad { get; set; }
-        public string Nivel { get; set; }
-        public bool MembresiaActiva { get; set; }
+        public bool Membresia { get; set; }
+        public int IdNivel { get; set; }
+        public string Nivele { get; set; }
         public List<object> Ciclistas { get; set; }
+
+        public ML.Nivel Nivel { get; set; }
     }
 }

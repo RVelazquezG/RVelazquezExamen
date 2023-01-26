@@ -1,0 +1,56 @@
+﻿@model ML.Ciclista
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+    <h2 class="text-center">LISTADO DE CICLISTAS</h2>  <br>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="text-lg-end">
+            <div style="float">
+                @Html.ActionLink("Agregar registro", "Form", "Ciclista", htmlAttributes: new{@class="btn btn-success"})
+            </div>
+        </div>
+
+        <div class=" row">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Editar</th>
+                        <th hidden>IdCiclista</th>
+                        <th>NombreCiclista</th>
+                        <th>Direccion</th>
+                        <th>Edad</th>
+                        <th>Membresia</th>
+                        <th hidden>IdNivel</th>
+                        <th>NombreNivel</th>
+                        <th>Eliminar</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Ciclista ciclista in Model.Ciclistas)
+                    {
+                        <tr>
+                            <td><a class="btn btn-warning" href="@Url.Action("Form", "Ciclista", new {IdCiclista = ciclista.IdCiclista})"></a></td>
+                            <td hidden>@ciclista.IdCiclista</td>
+                            <td>@ciclista.NombreCiclista</td>
+                            <td>@ciclista.Direccion</td>
+                            <td>@ciclista.Edad</td>
+                            <td>@ciclista.Membresia</td>
+                            <td hidden>@ciclista.Nivel.IdNivel</td>
+                            <td>@ciclista.Nivel.NombreNivel</td>
+                            <td><a class="btn btn-danger" href="@Url.Action("Delete", "Ciclista", new {IdCiclista = ciclista.IdCiclista})"></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

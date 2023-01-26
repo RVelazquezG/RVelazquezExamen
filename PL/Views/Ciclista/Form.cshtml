@@ -1,0 +1,102 @@
+﻿@model ML.Ciclista
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h4>Credenciales de ciclista</h4>  <br>
+    <div class="row">
+
+
+        @using (Html.BeginForm("Form", "Ciclista", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col" hidden>
+                @Html.LabelFor(model => model.IdCiclista)
+                @Html.TextBoxFor(model => model.IdCiclista)
+                @Html.ValidationMessageFor(model => model.IdCiclista)
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.NombreCiclista)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                                @Html.TextBoxFor(model => model.NombreCiclista, new { @class = "form-control", @id = "txtNombreCiclista", @placeholder="Ejemplo: Jose Hernandez", autocomplete = "off"})
+                                @Html.ValidationMessageFor(model => model.NombreCiclista, null, new { @class = "text-danger"})
+
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Direccion)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control", @id = "txtDireccion", @placeholder="Ejemplo: Avenida 1, Calle 1, Casa 1", autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.Direccion, null, new { @class = "text-danger"})
+                                @Html.Label("",null, new {@id="lblDireccion"})
+
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Edad)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.Edad, new { @class = "form-control", @id = "txtEdad", autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.Edad, null, new { @class = "text-danger"})
+                                @Html.Label("",null, new {@id="lblEdad"})
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Membresia)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                @Html.TextBoxFor(model => model.Membresia, new { @class = "form-control", @id = "txtMembresia", autocomplete = "off", @onchange = "return SoloLetras(event,'lblApellidoMaterno')" })
+                                @Html.ValidationMessageFor(model => model.Membresia, null, new { @class = "text-danger"})
+                                @Html.Label("",null, new {@id="lblMembresia"})
+                            </div>
+                        </div>
+
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Nivel.IdNivel)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                                @Html.DropDownListFor(model => model.Nivel.IdNivel, new SelectList(Model.Nivel.Niveles, "IdNivel", "NombreNivel"), "Selecciona una opción", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Nivel.IdNivel)
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <br>  <br>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                        @Html.ActionLink("Regresar", "GetAll", "Ciclista", htmlAttributes: new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        }
+    </div>
+</div>

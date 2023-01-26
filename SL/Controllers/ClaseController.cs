@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace SL.Controllers
 {
-    public class CiclistaController : ControllerBase
+    public class ClaseController : Controller
     {
 
+
         [HttpGet]
-        [Route("api/Ciclista/GetAll")]
+        [Route("api/Clase/GetAll")]
         public IActionResult GetAll()
         {
 
-            ML.Result result = BL.Ciclista.GetAll();
+            ML.Result result = BL.Clase.GetAll();
 
 
 
@@ -27,11 +27,11 @@ namespace SL.Controllers
         }
 
         [HttpPost]
-        [Route("api/Ciclista/Add")]
-        public IActionResult Add(ML.Ciclista ciclista)
+        [Route("api/Clase/Add")]
+        public IActionResult Add(ML.Clase clase)
         {
 
-            ML.Result result = BL.Ciclista.Add(ciclista);
+            ML.Result result = BL.Clase.Add(clase);
 
             if (result.Correct)
             {
@@ -44,13 +44,13 @@ namespace SL.Controllers
         }
 
         [HttpGet]
-        [Route("api/Ciclista/GetById/{IdCiclista}")]
-        public IActionResult GetById(int IdCiclista)
+        [Route("api/Clase/GetById/{IdClase}")]
+        public IActionResult GetById(int IdClase)
         {
-            ML.Ciclista ciclista = new ML.Ciclista();
+            ML.Clase clase = new ML.Clase();
 
-            ciclista.Nivel = new ML.Nivel();
-            ML.Result result = BL.Ciclista.GetById(IdCiclista);
+            clase.Nivel = new ML.Nivel();
+            ML.Result result = BL.Clase.GetById(IdClase);
 
             if (result.Correct)
             {
@@ -63,12 +63,12 @@ namespace SL.Controllers
         }
 
         [HttpDelete]
-        [Route("api/ciclista/Delete/{IdCiclista}")]
-        public IActionResult Delete(int IdCiclista)
+        [Route("api/clase/Delete/{IdClase}")]
+        public IActionResult Delete(int IdClase)
         {
-            ML.Ciclista ciclista = new ML.Ciclista();
-            ciclista.IdCiclista = IdCiclista;
-            var result = BL.Ciclista.Delete(IdCiclista);
+            ML.Clase clase = new ML.Clase();
+            clase.IdClase = IdClase;
+            var result = BL.Ciclista.Delete(IdClase);
             if (result.Correct)
             {
                 return Ok(result);
