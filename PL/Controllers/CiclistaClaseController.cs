@@ -146,7 +146,7 @@ namespace PL.Controllers
                 if (result.Correct)
                 {
                     ciclistaClase = (ML.CiclistaClase)result.Object;
-                    ViewBag.Message = " El ciclista ha sido asignado a la clase con exito";
+                    ViewBag.Message = " El ciclista ha sido asignado a la clase con exito ";
                     return PartialView("Modal");
                 }
                 else
