@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,9 @@ namespace ML
 {
     public class Clase
     {
+        [DisplayName("Clase")]
         public int IdClase { get; set; }
-
+        [DisplayName("Nombre de la clase")]
         public string? Nombre { get; set; }
         public int? IdNivel { get; set; }
 

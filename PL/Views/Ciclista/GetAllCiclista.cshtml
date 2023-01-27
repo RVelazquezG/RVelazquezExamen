@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>GetAllCiclista</h1>
+<h1>GET CICLISTAS / API</h1>
 
 <div class="container">
     <div class="row">
@@ -25,22 +25,21 @@
 
                 <tbody>
 
-                    @foreach (ML.Ciclista ciclista in Model.Ciclistas)
+                    @for (var i = 0; i < Model.Ciclistas.Count; i++)
                     {
-
-                        ciclista.Ciclistas = new List<object>();
+                        <input type="hidden" asp-for="@Model.Ciclistas[i].NombreCiclista" />
+                        <input type="hidden" asp-for="@Model.Ciclistas[i].Direccion" />
+                        <input type="hidden" asp-for="@Model.Ciclistas[i].Edad" />
+                        <input type="hidden" asp-for="@Model.Ciclistas[i].Nivele" />
+                        <input type="hidden" asp-for="@Model.Ciclistas[i].Membresia" />
 
                         <tr>
-
-                            <td>@ciclista.NombreCiclista</td>
-                            <td>@ciclista.Direccion</td>
-                            <td>@ciclista.Edad</td>
-                            <td>@ciclista.Nivele</td>
-                            <td>@ciclista.Membresia</td>
-
+                            <td>@Model.Ciclistas[i].NombreCiclista</td>
+                            <td>@Model.Ciclistas[i].Direccion</td>
+                            <td>@Model.Ciclistas[i].Edad</td>
+                            <td>@Model.Ciclistas[i].Nivele</td>
+                            <td>@Model.Ciclistas[i].Membresia</td>
                         </tr>
-                        
-                        ciclista.Ciclistas.Add(ciclista);
                     }
 
                 </tbody>

@@ -1,21 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace SL.Controllers
 {
-    public class CiclistaController : ControllerBase
+    public class CiclistaClaseController : Controller
     {
 
         [HttpGet]
-        [Route("api/Ciclista/GetAll")]
+        [Route("api/CiclistaClase/GetAll")]
         public IActionResult GetAll()
         {
+            ML.CiclistaClase ciclistaClase = new ML.CiclistaClase();
+            ciclistaClase.Clase = new ML.Clase();
+            ciclistaClase.Ciclista = new ML.Ciclista();
 
-
-            ML.Result result = BL.Ciclista.GetAll();
-
-
+            ML.Result result = BL.CiclistaClase.GetAll(ciclistaClase);
 
             if (result.Correct)
             {
@@ -27,12 +25,13 @@ namespace SL.Controllers
             }
         }
 
+
         [HttpPost]
-        [Route("api/Ciclista/Add")]
-        public IActionResult Add([FromBody]ML.Ciclista ciclista)
+        [Route("api/CiclistaClase/Add")]
+        public IActionResult Add(ML.CiclistaClase ciclistaClase)
         {
 
-            ML.Result result = BL.Ciclista.Add(ciclista);
+            ML.Result result = BL.CiclistaClase.Add(ciclistaClase);
 
             if (result.Correct)
             {
@@ -45,13 +44,13 @@ namespace SL.Controllers
         }
 
         [HttpGet]
-        [Route("api/Ciclista/GetById/{IdCiclista}")]
-        public IActionResult GetById(int IdCiclista)
+        [Route("api/CiclistaClase/GetById/{IdRelacion}")]
+        public IActionResult GetById(int IdRelacion)
         {
             ML.Ciclista ciclista = new ML.Ciclista();
 
             ciclista.Nivel = new ML.Nivel();
-            ML.Result result = BL.Ciclista.GetById(IdCiclista);
+            ML.Result result = BL.CiclistaClase.GetById(IdRelacion);
 
             if (result.Correct)
             {
@@ -64,12 +63,12 @@ namespace SL.Controllers
         }
 
         [HttpDelete]
-        [Route("api/ciclista/Delete/{IdCiclista}")]
-        public IActionResult Delete(int IdCiclista)
+        [Route("api/ciclistaClase/Delete/{IdRelacion}")]
+        public IActionResult Delete(int IdRelacion)
         {
-            ML.Ciclista ciclista = new ML.Ciclista();
-            ciclista.IdCiclista = IdCiclista;
-            var result = BL.Ciclista.Delete(IdCiclista);
+            ML.CiclistaClase ciclistaClase = new ML.CiclistaClase();
+            ciclistaClase.IdRelacion = IdRelacion;
+            var result = BL.CiclistaClase.Delete(IdRelacion);
             if (result.Correct)
             {
                 return Ok(result);

@@ -26,4 +26,5 @@ public partial class Clase
     public string NombreNivel { get; set; }
     public string Descripcion { get; set; }
     public string NombreAula { get; set; }
+
 }

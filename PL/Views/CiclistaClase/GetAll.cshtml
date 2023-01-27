@@ -1,0 +1,79 @@
+﻿@model ML.CiclistaClase
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2 class="text-center">ADMINISTRACION DE CICLISTAS</h2>
+<br>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="text-lg-end">
+            <div style="float">
+                @Html.ActionLink("Agregar registro", "Form", "CiclistaClase", htmlAttributes: new{@class="btn btn-success"})
+              
+            </div>
+        </div>
+         <br />
+        @using (Html.BeginForm("GetAll", "CiclistaClase", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-3">
+                    @Html.TextBoxFor(model => model.Ciclista.NombreCiclista, new { @class = "form-control", @placeholder = "Nombre del ciclista" })
+      <br>
+                    @Html.TextBoxFor(model => model.Clase.Nombre, new { @class = "form-control", @placeholder = "Nombre de la clase" })
+                </div>
+                <div class="col-3">
+                    <input type="submit" value="Buscar" class="btn btn-warning" />
+                    <br>
+                    <a class="btn btn-danger" href="@Url.Action("GetAll", "CiclistaClase")"></a>
+                </div>
+            </div>
+        }
+        <br />
+        <hr />
+        <div class=" row">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Editar</th>
+                        <th hidden>IdCiclistaClase</th>
+                        <th hidden>IdCiclista</th>
+                        <th>Nombre del ciclista</th>
+                        <th hidden>IdClase</th>
+                        <th>Nombre de la clase</th>
+                        <th hidden>IdAula</th>
+                        <th>Aula</th>
+                        <th hidden>IdHorario</th>
+                        <th>Horario</th>
+                        <th>Eliminar</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.CiclistaClase ciclistaClase in Model.CiclistaClases)
+                    {
+                        <tr>
+                            <td><a class="btn btn-warning" href="@Url.Action("Form", "CiclistaClase", new {IdRelacion = ciclistaClase.IdRelacion})"></a></td>
+                            <td hidden>@ciclistaClase.IdRelacion</td>
+                            <td hidden>@ciclistaClase.Ciclista.IdCiclista</td>
+                            <td>@ciclistaClase.Ciclista.NombreCiclista</td>
+                            <td hidden>@ciclistaClase.Clase.IdClase</td>
+                            <td>@ciclistaClase.Clase.Nombre</td>
+                            <td hidden>@ciclistaClase.Clase.Aula.IdAula</td>
+                            <td>@ciclistaClase.Clase.Aula.NombreAula</td>
+                            <td hidden>@ciclistaClase.Clase.Horario.IdHorario</td>
+                            <td>@ciclistaClase.Clase.Horario.Descripcion</td>
+                            <td><a class="btn btn-danger" href="@Url.Action("Delete", "CiclistaClase", new {IdRelacion = ciclistaClase.IdRelacion})"></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

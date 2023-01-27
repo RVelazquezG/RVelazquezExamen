@@ -10,7 +10,6 @@ namespace PL.Controllers
         {
             ML.Ciclista ciclista = new ML.Ciclista();
             ML.Result result = new ML.Result();
-            result.Objects = new List<object>();
 
             using (var cliente = new HttpClient())
             {
@@ -26,9 +25,8 @@ namespace PL.Controllers
                     dynamic resultJSON = JArray.Parse(readTask.Result.ToString());
                     readTask.Wait();
 
-                    ciclista.Ciclistas = new List<object>();
-
-                    foreach(var resultItem in resultJSON)
+                    ciclista.Ciclistas = new List<ML.Ciclista>();
+                    foreach (var resultItem in resultJSON)
                     {
                         ML.Ciclista ciclistaItem = new ML.Ciclista();
 
@@ -42,7 +40,7 @@ namespace PL.Controllers
                     }
                 }
             }
-           
+
             return View(ciclista);
         }
 
@@ -50,25 +48,48 @@ namespace PL.Controllers
         {
             ML.Result result = new ML.Result();
 
-            using (var cliente = new HttpClient())
+            foreach (ML.Ciclista ciclistaItem in ciclista.Ciclistas)
             {
-                cliente.BaseAddress = new Uri("http://localhost:5215/");
-                var responseTask = cliente.PostAsJsonAsync("api/Ciclista/Add", ciclista);
-                responseTask.Wait();
 
-                var resultServicio = responseTask.Result;
+                ciclistaItem.Nivel = new ML.Nivel();
 
-                if (resultServicio.IsSuccessStatusCode)
+                switch (ciclistaItem.Nivele)
                 {
-                    ViewBag.Message = "Se agrego el registro";
-                }
-                else
-                {
-                    ViewBag.Message = "No se agrego el registro";
+                    case "Novato":
+                        ciclistaItem.Nivel.IdNivel = 1;
+                        break;
+
+                    case "Intermedio":
+                        ciclistaItem.Nivel.IdNivel = 2;
+                        break;
+
+                    case "Experto":
+                        ciclistaItem.Nivel.IdNivel = 3;
+                        break;
+
                 }
 
-                return PartialView("Modal");
-            } 
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri("http://localhost:5215/");
+                    var responseTask = cliente.PostAsJsonAsync("api/Ciclista/Add", ciclistaItem);
+                    responseTask.Wait();
+
+                    var resultServicio = responseTask.Result;
+
+                    if (resultServicio.IsSuccessStatusCode)
+                    {
+                        ViewBag.Message = "Se agrego el registro";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "No se agrego el registro";
+                    }
+
+                }
+            }
+
+            return PartialView("Modal");
         }
 
         [HttpGet]
@@ -90,15 +111,15 @@ namespace PL.Controllers
                     var readTask = resultServicio.Content.ReadAsAsync<ML.Result>();
                     readTask.Wait();
 
-                    result.Objects = new List<object>();
+                    ciclista.Ciclistas = new List<ML.Ciclista>();
                     foreach (var resultItem in readTask.Result.Objects)
                     {
                         ML.Ciclista resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Ciclista>(resultItem.ToString());
                         result.Objects.Add(resultItemList);
 
+                        ciclista.Ciclistas.Add(resultItemList);
                     }
                 }
-                ciclista.Ciclistas = result.Objects;
             }
             return View(ciclista);
         }
@@ -179,7 +200,7 @@ namespace PL.Controllers
         public ActionResult Form(ML.Ciclista ciclista)
         {
 
-            if (ciclista.IdCiclista == 0)
+            if (ciclista.IdCiclista == null)
             {
                 ML.Result result = BL.Ciclista.Add(ciclista);
                 if (result.Correct)

@@ -93,8 +93,6 @@ namespace BL
 
         }
 
-   
-
         public static Result Update(ML.Ciclista ciclista)
         {
             Result result = new Result();

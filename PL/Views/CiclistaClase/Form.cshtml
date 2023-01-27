@@ -1,0 +1,69 @@
+﻿@model ML.CiclistaClase
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h4>ASIGNACION </h4>  <br>
+    <div class="row">
+
+
+        @using (Html.BeginForm("Form", "CiclistaClase", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col" hidden>
+                @Html.LabelFor(model => model.IdRelacion)
+                @Html.TextBoxFor(model => model.IdRelacion)
+                @Html.ValidationMessageFor(model => model.IdRelacion)
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Ciclista.IdCiclista)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                                @Html.DropDownListFor(model => model.Ciclista.IdCiclista, new SelectList(Model.Ciclista.CiclistasBase, "IdCiclista", "NombreCiclista"), "Selecciona una opción", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Ciclista.IdCiclista)
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            @Html.LabelFor(model => model.Clase.IdClase)
+                            <div class="input-group mb">
+                                <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                                @Html.DropDownListFor(model => model.Clase.IdClase, new SelectList(Model.Clase.Clases, "IdClase", "Nombre"), "Selecciona una opción", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Clase.IdClase)
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <br>  <br>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                        @Html.ActionLink("Regresar", "GetAll", "CiclistaClase", htmlAttributes: new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        }
+    </div>
+</div>
